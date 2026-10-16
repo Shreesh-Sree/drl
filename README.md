@@ -1,6 +1,6 @@
-# Deep Learning Lab: Experiments 1 to 11
+# Deep RL Lab: Python Experiments
 
-Aim, algorithm, program, output and result for each experiment. Code lives in [`experiments/`](experiments/), one file per experiment.
+Aim, algorithm, program, output and result for each Python experiment. Code lives in [`experiments/`](experiments/), one file per experiment.
 
 ## Contents
 
@@ -8,12 +8,9 @@ Aim, algorithm, program, output and result for each experiment. Code lives in [`
 |---|---|---|---|
 | 1 | Implementation of Perceptron Algorithm | Python | [`exp01_perceptron.py`](experiments/exp01_perceptron.py) |
 | 2 | Classification Using Backpropagation | Python | [`exp02_backpropagation_xor.py`](experiments/exp02_backpropagation_xor.py) |
-| 3 | Sequence Classification Using LSTM | MATLAB | [`exp03_lstm_sequence_classification.m`](experiments/exp03_lstm_sequence_classification.m) |
 | 4 | Deep Neural Network for Classification and Regression | Python | [`exp04_dnn_regression_classification.py`](experiments/exp04_dnn_regression_classification.py) |
 | 5 | Image Resizing, Rotation, and Preprocessing | Python | [`exp05_image_preprocessing.py`](experiments/exp05_image_preprocessing.py) |
 | 6 | Text Classification Using CNN | Python | [`exp06_cnn_text_classification.py`](experiments/exp06_cnn_text_classification.py) |
-| 7 | Loading AlexNet, VGG16, and ResNet50 | MATLAB | [`exp07_pretrained_alexnet_vgg16_resnet50.m`](experiments/exp07_pretrained_alexnet_vgg16_resnet50.m) |
-| 8 | MobileNetV2, GoogLeNet, and RNN | MATLAB | [`exp08_mobilenetv2_googlenet_rnn.m`](experiments/exp08_mobilenetv2_googlenet_rnn.m) |
 | 9 | Epsilon-Greedy Algorithm | Python | [`exp09_epsilon_greedy.py`](experiments/exp09_epsilon_greedy.py) |
 | 10 | Upper Confidence Bound (UCB) Algorithm | Python | [`exp10_ucb.py`](experiments/exp10_ucb.py) |
 | 11 | Thompson Sampling Algorithm | Python | [`exp11_thompson_sampling.py`](experiments/exp11_thompson_sampling.py) |
@@ -21,9 +18,9 @@ Aim, algorithm, program, output and result for each experiment. Code lives in [`
 ## Setup
 
 - **Python experiments (1, 2, 4, 5, 6, 9, 10, 11):** Python 3.9+, then `pip install -r requirements.txt`.
-- **MATLAB experiments (3, 7, 8):** MATLAB with the Deep Learning Toolbox, plus the AlexNet, VGG16, ResNet50, GoogLeNet and MobileNetV2 support packages (install them when MATLAB prompts).
+- **Numbering:** experiments 3, 7 and 8 (MATLAB) are not included, so the numbers below skip them.
 - **Experiment 5:** place `opera_house.jpg` in the same folder as the script.
-- Run a Python experiment with `python experiments/exp01_perceptron.py`. In MATLAB, run the `.m` file.
+- Run a Python experiment with `python experiments/exp01_perceptron.py`.
 
 ## Experiment 1: Implementation of Perceptron Algorithm
 
@@ -120,56 +117,6 @@ print(np.round(model.predict(X, verbose=0)))
 **Result:** The neural network was trained using backpropagation to learn the XOR classification problem.
 
 > **Note:** Neural network predictions can vary because of random weight initialization.
-
-## Experiment 3: Sequence Classification Using LSTM
-
-**Aim:** To create and train a sequence classification network using MATLAB.
-
-**Algorithm**
-
-1. Load the Japanese Vowels training and testing datasets.
-2. Define the sequence input layer.
-3. Add an LSTM layer and classification layers.
-4. Specify the training options.
-5. Train the network.
-6. Classify the test sequences and display the predictions.
-
-**Program** (`experiments/exp03_lstm_sequence_classification.m`)
-
-```matlab
-[XTrain,TTrain] = japaneseVowelsTrainData;
-[XTest,TTest] = japaneseVowelsTestData;
-
-layers = [
-    sequenceInputLayer(12)
-    lstmLayer(100,'OutputMode','last')
-    fullyConnectedLayer(9)
-    softmaxLayer
-    classificationLayer
-];
-
-options = trainingOptions('adam', ...
-    'MaxEpochs',10,'Verbose',false);
-
-net = trainNetwork(XTrain,TTrain,layers,options);
-YPred = classify(net,XTest);
-
-disp(YPred(1:5))
-```
-
-**Output**
-
-```
-The program displays the first five predicted class labels, for example:
-1
-1
-1
-1
-1
-The actual predictions depend on training and dataset conditions.
-```
-
-**Result:** An LSTM-based sequence classification network was trained and used to classify test sequences.
 
 ## Experiment 4: Deep Neural Network for Classification and Regression
 
@@ -360,104 +307,6 @@ The accuracy varies depending on training conditions.
 
 > **Note:** Requirement: install TensorFlow using `pip install tensorflow`. The first run downloads the dataset.
 
-## Experiment 7: Loading AlexNet, VGG16, and ResNet50
-
-**Aim:** To load and inspect pretrained CNN architectures using MATLAB.
-
-**Algorithm**
-
-1. Load the AlexNet model.
-2. Display its network structure.
-3. Load and display VGG16.
-4. Load and display ResNet50.
-5. Observe the layers and network properties.
-
-**Program** (`experiments/exp07_pretrained_alexnet_vgg16_resnet50.m`)
-
-```matlab
-% Load AlexNet
-net1 = alexnet;
-disp('AlexNet Model:');
-disp(net1);
-
-% Load VGG16
-net2 = vgg16;
-disp('VGG16 Model:');
-disp(net2);
-
-% Load ResNet50
-net3 = resnet50;
-disp('ResNet50 Model:');
-disp(net3);
-```
-
-**Output**
-
-```
-Example based on your previous MATLAB execution:
-SeriesNetwork with properties:
-    Layers: [25×1 nnet.cnn.layer.Layer]
-
-SeriesNetwork with properties:
-    Layers: [41×1 nnet.cnn.layer.Layer]
-
-DAGNetwork with properties:
-    Layers: [177×1 nnet.cnn.layer.Layer]
-```
-
-**Result:** AlexNet, VGG16, and ResNet50 were loaded successfully, and their network structures were displayed.
-
-> **Note:** Requirement: install the corresponding MATLAB support packages if prompted.
-
-## Experiment 8: MobileNetV2, GoogLeNet, and RNN
-
-**Aim:** To load pretrained CNN architectures and create a recurrent neural network using MATLAB.
-
-**Algorithm**
-
-1. Load and display MobileNetV2.
-2. Load and display GoogLeNet.
-3. Load a time-series dataset.
-4. Create a recurrent neural network.
-5. Prepare the training sequences.
-6. Train and visualize the network.
-
-**Program** (`experiments/exp08_mobilenetv2_googlenet_rnn.m`)
-
-```matlab
-% Load GoogLeNet
-net1 = googlenet;
-disp('GoogLeNet Model:');
-disp(net1);
-
-% Load MobileNetV2
-net2 = mobilenetv2;
-disp('MobileNetV2 Model:');
-disp(net2);
-
-% Create and train RNN
-[X,T] = simpleseries_dataset;
-
-net3 = layrecnet(1:2,10);
-
-[Xs,Xi,Ai,Ts] = preparets(net3,X,T);
-
-net3 = train(net3,Xs,Ts,Xi,Ai);
-
-% Display RNN architecture
-view(net3);
-```
-
-**Output**
-
-```
-The MATLAB command window displays the MobileNetV2 and GoogLeNet network structures. The RNN is then trained, and its architecture is displayed in a network viewer.
-```
-
-**Result:** The pretrained CNN architectures were loaded, and a recurrent neural network was trained using time-series data.
-
-> **Note:** Requirement: the necessary MATLAB toolboxes and pretrained network support packages must be installed.
-
 ## Experiment 9: Epsilon-Greedy Algorithm
 
 **Aim:** To implement the Epsilon-Greedy algorithm using Python.
@@ -614,12 +463,9 @@ Failures: [ 8. 22. 13.]
 |---|---|---|
 | 1 | Perceptron | Predicted class |
 | 2 | Backpropagation | XOR predictions |
-| 3 | LSTM sequence classification | Predicted sequence labels |
 | 4 | Deep neural network regression | Predicted numerical values |
 | 5 | Image preprocessing | Original and transformed images |
 | 6 | CNN text classification | Test accuracy |
-| 7 | AlexNet, VGG16, ResNet50 | Network structures |
-| 8 | MobileNetV2, GoogLeNet, RNN | Network structures and trained RNN |
 | 9 | Epsilon-Greedy | Estimated rewards and best machine |
 | 10 | UCB | Total reward |
 | 11 | Thompson Sampling | Success and failure counts |
